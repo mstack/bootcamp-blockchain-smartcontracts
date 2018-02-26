@@ -286,3 +286,15 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
+
+# Ignore Geth Directory (Reset Blockchain)
+Blockchain/testchain/devChain/geth/
+Blockchain/testchain/devChain/history
+
+.idea/
+.DS_Store
+node_modules/
+coverage/
+npm-debug.log
+dist/
+*/build/*.*

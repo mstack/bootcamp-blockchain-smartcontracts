@@ -1,0 +1,40 @@
+{
+    "extends": "airbnb-base",
+    "plugins": [
+        "jasmine",
+        "mocha"
+    ],
+    "rules": {
+        "indent": [
+            "error",
+            4
+        ],
+        "linebreak-style": [
+            2,
+            "windows"
+        ],
+        "max-len": [
+            "Error",
+            200,
+            4
+        ],
+        "prefer-destructuring": [
+            "error",
+            {
+                "array": false,
+                "object": false
+            },
+            {
+                "enforceForRenamedProperties": false
+            }
+        ]
+    },
+    "globals": {
+        "artifacts": false,
+        "contract": false,
+        "describe": false,
+        "before": false,
+        "beforeEach": false,
+        "it": false
+    }
+}

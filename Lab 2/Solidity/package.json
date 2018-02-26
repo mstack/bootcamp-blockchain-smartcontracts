@@ -1,0 +1,45 @@
+{
+  "name": "lab-1",
+  "version": "1.0.0",
+  "description": "Lab 1",
+  "scripts": {
+    "clean": "rimraf ./contracts/build/*.*",
+    "lint": "solhint ./contracts/SimpleStorageContract.sol",
+    "coverage": "concurrently --names \"TestRPC,Coverage\" --kill-others \"node_modules\\.bin\\testrpc-sc --port 8555\" \"node_modules\\.bin\\solidity-coverage\" || true",
+    "ejs-lint": "ejslint ../../Common/templates/*.ejs",
+    "build": "npm test && npm run clean && mkdirp ./contracts/build && node ./compile_contract ./contracts/SimpleStorageContract.sol ./contracts/build Lab1.SmartContracts",
+    "test": "npm run lint && truffle test"
+  },
+  "author": "stef.heyenrath@mstack.nl",
+  "license": "MIT",
+  "engines": {
+    "node": ">=7.0.0",
+    "npm": "^3.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mstack/bootcamp-blockchain-smartcontracts"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.2.2",
+    "cash-true": "0.0.2",
+    "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
+    "concurrently": "^3.5.1",
+    "ejs": "^2.5.7",
+    "ejs-lint": "^0.3.0",
+    "eslint": "^4.18.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jasmine": "^2.9.2",
+    "eslint-plugin-mocha": "^4.11.0",
+    "eslint-plugin-react": "^7.7.0",
+    "mkdirp": "^0.5.1",
+    "rimraf": "^2.6.2",
+    "solc": "^0.4.19",
+    "solhint": "^1.1.10",
+    "solidity-coverage": "^0.4.9",
+    "truffle": "^4.0.6",
+    "utf8": "^3.0.0"
+  }
+}
