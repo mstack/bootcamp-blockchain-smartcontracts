@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Lab 1",
   "scripts": {
-    "lint": "solhint ./contracts/SimpleStorageContract.sol",
+    "lint": "solhint ./contracts/SimpleStorageContract.sol && solhint ./contracts/MultiplyContract.sol",
     "test": "truffle test"
   },
   "author": "stef.heyenrath@mstack.nl",

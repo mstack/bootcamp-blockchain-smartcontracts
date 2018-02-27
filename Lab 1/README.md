@@ -96,4 +96,4 @@ Check the Solidity contracts code with a linter using the `npm run lint` command
 
 ### Step 7
 
-All done, if you have questions please ask and take also a look at the `Lab 1 - Completed` folder to see the completed
+All done, if you have questions please ask and take also a look at the `Lab 1 - Completed` folder to see the completed lab.

@@ -298,3 +298,4 @@ coverage/
 npm-debug.log
 dist/
 */build/*.*
+Lab 2/Solidity/contracts/build/

@@ -13,6 +13,7 @@ Install latest Visual Studio Code from <https://code.visualstudio.com>.
 
 Install the following the following extensions in Visual Studio Code:
 
+- `c#`
 - `solidity`
 - `.ejs`
 - `eslint`
