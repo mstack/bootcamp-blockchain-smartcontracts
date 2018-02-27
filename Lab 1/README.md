@@ -33,7 +33,7 @@ If you have some generic or detailed questions, please feel free to ask these at
 This lab contains two simple SmartContracts:
 
 - `SimpleStorageContract` this contract can store and retrieve number and string values
-- `CalculatorContract` this contract is initialized with a default multiply factor and can do some basic multiplications
+- `MultiplyContract` this contract is initialized with a default multiply factor and can do some basic multiplications
 - Both contracts are unit tested
 
 ## Steps
