@@ -1,4 +1,4 @@
-const helper = require('./helper');
+// const helper = require('./helper');
 const chai = require('chai'); // http://chaijs.com/
 const chaiAsPromised = require('chai-as-promised'); // http://chaijs.com/plugins/chai-as-promised/
 
