@@ -38,9 +38,9 @@ namespace <%= locals.namespace ? namespace : 'DefaultNamespace' %>
             _contract = _web3.Eth.GetContract(ABI, address);
         }
 
-        public async Task<bool> ExecuteTransactionAsync(Func<Task<string>> func, int timeoutInSeconds = 120)
+        public async Task<bool> ExecuteTransactionAsync(Func<I<%= capitalizeFirstLetter(getContractName()) %>Service, Task<string>> func, int timeoutInSeconds = 120)
         {
-            string transaction = await func();
+            string transaction = await func(this);
             var receipt = await _web3.Eth.Transactions.GetTransactionReceipt.SendRequestAsync(transaction).ConfigureAwait(false);
 
             int count = 0;

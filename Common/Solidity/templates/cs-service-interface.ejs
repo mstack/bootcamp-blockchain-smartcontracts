@@ -10,7 +10,7 @@ namespace <%= locals.namespace ? namespace : 'DefaultNamespace' %>
 {
     public interface I<%= capitalizeFirstLetter(getContractName()) %>Service
     {
-        Task<bool> ExecuteTransactionAsync(Func<Task<string>> func, int timeoutInSeconds = 120);
+        Task<bool> ExecuteTransactionAsync(Func<I<%= capitalizeFirstLetter(getContractName()) %>Service, Task<string>> func, int timeoutInSeconds = 120);
 
 <%= abi.forEach(generateGetFunction) %>
 <%= abi.forEach(generateGetEvent) %>

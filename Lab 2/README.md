@@ -92,7 +92,20 @@ SimpleStorageContract: generate C# implementations
 
 ### Step 6
 
-Now open the `Lab 2\ConsoleApp` folder in Visual Code.
+Now open a new command terminal in Visual Code, and type:
+
+- `cd Lab 2`
+- `cd ConsoleApp`
+- `dotnet build` (if all is fine, a restore should be done and the build should complete with 0 errors.)
 
 ### Step 7
 
+Open the file `Lab 2\ConsoleApp\Program.cs` in Visual Code.
+
+### Step 8
+
+Now open a new command terminal in Visual Code, and type:
+
+- `cd Tools`
+- `cd testchain`
+- `startheth.bat` (this command will start a local instance from Etherum VM using GO-Eth)

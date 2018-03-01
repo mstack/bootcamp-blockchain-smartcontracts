@@ -297,5 +297,7 @@ node_modules/
 coverage/
 npm-debug.log
 dist/
-*/build/*.*
 Lab 2/Solidity/contracts/build/
+Tools/testchain/devChain/geth/chaindata/
+Tools/testchain/devChain/geth/lightchaindata/
+Tools/testchain/devChain/geth/

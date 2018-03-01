@@ -40,6 +40,9 @@ namespace ConsoleApp
             Console.WriteLine($"Deploying contract done, address = {contractAddress}");
 
             ISimpleStorageContractService service = new SimpleStorageContractService(web3, contractAddress);
+
+            // TODO 1:
+            // await service.ExecuteTransactionAsync((srv) => srv.SetNumberAsync(fromAddress, 500));
         }
     }
 }
