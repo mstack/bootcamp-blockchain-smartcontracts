@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Nethereum.Web3.Accounts.Managed;
 using Nethereum.Geth;
 using Lab2.SmartContracts;
+using Nethereum.Hex.HexTypes;
 
 namespace ConsoleApp
 {
@@ -26,7 +27,7 @@ namespace ConsoleApp
 
             TestService(senderAddress, password).Wait(60000);
 
-            Console.WriteLine(new string('_', 80));
+            Console.WriteLine(new string('-', 80));
         }
 
         private static async Task TestService(string fromAddress, string password)
@@ -35,14 +36,33 @@ namespace ConsoleApp
 
             var web3 = new Web3Geth(account);
 
-            Console.WriteLine("Deploying contract (can take some time)");
-            string contractAddress = await SimpleStorageContractService.DeployContractAsync(web3, fromAddress, 1, "mstack.nl");
-            Console.WriteLine($"Deploying contract done, address = {contractAddress}");
+            bool deployNewContract = true; // TODO 0
+            string contractAddress = null; // TODO 0
+            if (deployNewContract)
+            {
+                var gasForDeployContract = new HexBigInteger(15000000);
+                Console.WriteLine("Deploying contract (can take some time)");
+                contractAddress = await SimpleStorageContractService.DeployContractAsync(web3, fromAddress, 1, "mstack.nl", null, gasForDeployContract);
+                Console.WriteLine($"Deploying contract done, address = {contractAddress}");
+            }
 
+            // Create an instance from the SimpleStorageContractService service which
+            // abstracts all calls to the SmartContract.
             ISimpleStorageContractService service = new SimpleStorageContractService(web3, contractAddress);
 
             // TODO 1:
-            // await service.ExecuteTransactionAsync((srv) => srv.SetNumberAsync(fromAddress, 500));
+            // bool setNumberResult =  await service.ExecuteTransactionAsync((srv) => srv.SetNumberAsync(fromAddress, 500));
+
+            // TODO 2:
+            // var getNumberValue = await service.GetNumberCallAsync(fromAddress);
+            // Console.WriteLine($"The stored number value is '{getNumberValue}'.");
+
+            // TODO 3:
+            // bool setStringResult =  await service.ExecuteTransactionAsync((srv) => srv.SetStringAsync(fromAddress, "mstack.nl test"));
+
+            // TODO 4:
+            // var getStringValue = await service.GetStringCallAsync(fromAddress);
+            // Console.WriteLine($"The stored string value is '{getStringValue}'.");
         }
     }
 }

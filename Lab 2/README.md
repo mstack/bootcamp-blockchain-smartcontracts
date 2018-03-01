@@ -100,12 +100,56 @@ Now open a new command terminal in Visual Code, and type:
 
 ### Step 7
 
-Open the file `Lab 2\ConsoleApp\Program.cs` in Visual Code.
+Now go to the location where the github project is downloaded or clone and double click the `Tools\testchain\startheth.bat` file.
+
+This command will start a local instance from Etherum VM using GO-Eth.
+
+Note that running this can take up some CPU and Memory, so when you're done testing (and before each test with the console-app), just close the cmd window.
 
 ### Step 8
 
-Now open a new command terminal in Visual Code, and type:
+Go to the command terminal in Visual Code, and type:
 
-- `cd Tools`
-- `cd testchain`
-- `startheth.bat` (this command will start a local instance from Etherum VM using GO-Eth)
+- `dotnet run` to run the ConsoleApp
+
+If all is configured correctly, you should see output like:
+
+``` x
+Blockchain - Ethereum - ConsoleApp
+--------------------------------------------------------------------------------
+Deploying contract (can take some time)
+Deploying contract done, address = 0xd0828aeb00e4db6813e2f330318ef94d2bba2f60
+```
+
+This means that the contract was deployed successfully and is assigned to that address *0xd0828aeb00e4db6813e2f330318ef94d2bba2f60*.
+
+No extra code is executed yet because all TODO's are still commented. In the next steps C# will be written to execute methods on the contract.
+
+### Step 9
+
+Open the file `Lab 2\ConsoleApp\Program.cs` in Visual Code.
+
+- enable the `TODO 1` code. This code executes the function `SetNumberAsync` as a transaction, wrapping this in a `ExecuteTransactionAsync(...)` call
+- also enable `TODO 2` to print out the persisted value to the console logging
+- enable `TODO 3` and `TODO 4` to store and retrieve a string from the SmartContract
+- Run the ConsoleApp `dotnet run` and the output should lool like:
+
+``` x
+Deploying contract (can take some time)
+Deploying contract done, address = 0x2e5f6d7138ce653ec0e47101e1c03a7e42d414f2
+The stored number value is '10'.
+The stored string value is 'mstack.nl test'.
+```
+
+### Step 10
+
+- Keep the `startgeth.bat` running
+- Remember the address where the contract was deployed in the previous step
+- At the `TODO 0` change the value from `deployNewContract` from `true` to `false`
+- Also change the value from `contractAddress` from `null` to the Contract address you remembered
+- Comment the code at again at `TODO 1` and `TODO 3` to make sure you don't set any values
+- Rerun the ConsoleApp `dotnet run` to see that the values which were stored in Step 9 are still persisted in the contract
+
+### Step 11
+
+Done.
