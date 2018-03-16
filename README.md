@@ -1,4 +1,4 @@
-# Global Azure Bootcamp - Etheruem SmartContracts in Azure Blockchain as a Service
+# Global Azure Bootcamp - Ethereum SmartContracts in Azure Blockchain as a Service
 
 ## Lab 0
 
