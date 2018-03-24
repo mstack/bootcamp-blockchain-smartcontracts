@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Lab2.SmartContracts;
 using Nethereum.Web3.Accounts.Managed;
 using Nethereum.Geth;
-using Lab2.SmartContracts;
 using Nethereum.Hex.HexTypes;
 
 namespace ConsoleApp
@@ -25,7 +25,7 @@ namespace ConsoleApp
 
             Console.WriteLine(new string('-', 80));
 
-            TestService(senderAddress, password).Wait(60000);
+            TestService(senderAddress, password).Wait(1000 * 60 * 5); // Wait max 5 minutes
 
             Console.WriteLine(new string('-', 80));
         }
@@ -51,14 +51,14 @@ namespace ConsoleApp
             ISimpleStorageContractService service = new SimpleStorageContractService(web3, contractAddress);
 
             // TODO 1:
-            // bool setNumberResult =  await service.ExecuteTransactionAsync((srv) => srv.SetNumberAsync(fromAddress, 500));
+            // bool setNumberResult = await service.ExecuteTransactionAsync(srv => srv.SetNumberAsync(fromAddress, 500));
 
             // TODO 2:
             // var getNumberValue = await service.GetNumberCallAsync(fromAddress);
             // Console.WriteLine($"The stored number value is '{getNumberValue}'.");
 
             // TODO 3:
-            // bool setStringResult =  await service.ExecuteTransactionAsync((srv) => srv.SetStringAsync(fromAddress, "mstack.nl test"));
+            // bool setStringResult =  await service.ExecuteTransactionAsync(srv => srv.SetStringAsync(fromAddress, "mstack.nl test"));
 
             // TODO 4:
             // var getStringValue = await service.GetStringCallAsync(fromAddress);

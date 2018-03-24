@@ -17,7 +17,7 @@ If you have some generic or detailed questions, please feel free to ask these at
 ## Folder structure
 
 - `Solidity`: folder for the SmartContracts written in Solidity and unit-tests written in javascript.
-- `ConsoleApp`: folder for the SmartContracts written in Solidity and unit-tests written in javascript.
+- `ConsoleApp`: folder for the ConsoleApp (C#).
 
 ## Details
 
