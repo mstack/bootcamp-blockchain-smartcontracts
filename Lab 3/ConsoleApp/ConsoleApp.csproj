@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <AssemblyName>ConsoleApp.Lab3</AssemblyName>
+    <StartupObject>ConsoleApp.Program</StartupObject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\..\Lab 2\Solidity\contracts\build\ISimpleStorageContractService.Generated.cs" Link="ISimpleStorageContractService.Generated.cs" />
+    <Compile Include="..\..\Lab 2\Solidity\contracts\build\SimpleStorageContractService.Generated.cs" Link="SimpleStorageContractService.Generated.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Nethereum.Geth" Version="2.2.3" />
+    <PackageReference Include="Nethereum.Web3" Version="2.2.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+  </ItemGroup>
+
+</Project>
