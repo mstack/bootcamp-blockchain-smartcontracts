@@ -65,10 +65,10 @@ In the console output, you should see something like:
 ```
 
 A more detailed code coverage HTML file is generated at `Lab 2\Solidity\coverage\index.html`. Open this file in an interner browser. This should look like:
-![Coverage](coverage-lab2.png)
+![Coverage_1](coverage-lab2.png)
 
 Click the **contracts** link and drill down to the contract file:
-![Coverage](coverage-contract-lab2.png)
+![Coverage_2](coverage-contract-lab2.png)
 
 ### Step 4
 

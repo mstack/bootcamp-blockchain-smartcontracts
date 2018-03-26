@@ -1,5 +1,7 @@
 # Global Azure Bootcamp - Ethereum SmartContracts in Azure Blockchain as a Service
 
+![WordCloud](wordcloud.png)
+
 ## Lab 0
 
 This lab describes all the prerequisite steps you need to do before you can start with the other labs.
