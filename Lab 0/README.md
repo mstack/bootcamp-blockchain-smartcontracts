@@ -9,7 +9,7 @@ The following tools and software needs to be installed:
 ## Node
 
 - Install NPM and Node.js (<https://nodejs.org/en/>), version 7 or greater.
-- Install Windows Build Tools globally (<https://www.npmjs.com/package/windows-build-tools>). Note that you need to install this as Administrator.
+- Install Windows Build Tools globally (<https://www.npmjs.com/package/windows-build-tools>). Start a new command prompt as Administrator and type this command: `npm i windows-build-tools -g`
 
 ## Visual Code
 
