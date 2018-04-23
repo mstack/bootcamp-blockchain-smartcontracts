@@ -36,7 +36,7 @@ Now open a new command terminal in Visual Code, and type:
 Open the file `Lab 3\ConsoleApp\Program.cs` in Visual Code.
 
 - `TODO 1` : make sure to fill in your assigned address. Note that the password is always `test`.
-- `TODO 2` : replace `http://???.westeurope.cloudapp.azure.com:8545/` by the correct URL provided by mStack.
+- `TODO 2` : replace `http://???.westeurope.cloudapp.azure.com:8545/` by the correct URL provided by mStack. If this URL is not yet provided, or the service is not working, you can download and install [Ganache](http://truffleframework.com/ganache/) on your local system and replace the URL with `http://localhost:7545`.
 - Run the ConsoleApp `dotnet run` and the output should look like this:
 
 ``` x
