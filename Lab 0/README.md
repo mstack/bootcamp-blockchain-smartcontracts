@@ -9,7 +9,40 @@ The following tools and software needs to be installed:
 ## Node
 
 - Install NPM and Node.js (<https://nodejs.org/en/>), version 7 or greater.
-- Install Windows Build Tools globally (<https://www.npmjs.com/package/windows-build-tools>). Start a new command prompt as Administrator and type this command: `npm i windows-build-tools -g`
+
+## Windows Build Tools
+
+- Install Windows Build Tools globally (<https://www.npmjs.com/package/windows-build-tools>).
+
+Start a new command prompt as Administrator and type this command: `npm i windows-build-tools -g`
+
+Note that this will take some time (minutes), only continue to next steps when you see output like this:
+
+``` x
+C:\Users\stef>npm i windows-build-tools -g
+
+> windows-build-tools@2.3.0 postinstall C:\Users\stef\AppData\Roaming\npm\node_modules\windows-build-tools
+> node ./lib/index.js
+
+Downloading python-2.7.14.amd64.msi
+Downloading BuildTools_Full.exe
+[============================================>] 100.0% of 3.29 MB (692.2 kB/s)
+Downloaded BuildTools_Full.exe. Saved to C:\Users\stef\.windows-build-tools\BuildTools_Full.exe.
+
+Starting installation...
+Launched installers, now waiting for them to finish.
+This will likely take some time - please be patient!
+
+Status from the installers:
+---------- Visual Studio Build Tools ----------
+Successfully installed Visual Studio Build Tools.
+------------------- Python --------------------
+Successfully installed Python 2.7
++ windows-build-tools@2.3.0
+updated 1 package in 637.13s
+
+C:\Users\stef>
+```
 
 ## Visual Code
 
