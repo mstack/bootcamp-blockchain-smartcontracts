@@ -8,18 +8,18 @@ The following tools and software needs to be installed:
 
 ## Node
 
-- Install NPM and Node.js (<https://nodejs.org/en/>), version 7 or greater.
+- Install NPM and [Node.js](https://nodejs.org/en/) version 7 or 8.
 
 ## Windows Build Tools
 
 - Install Windows Build Tools globally (<https://www.npmjs.com/package/windows-build-tools>).
 
-Start a new command prompt as Administrator and type this command: `npm i windows-build-tools -g`
+Start a new command prompt as Administrator and type this command: `npm install --global --production windows-build-tools`
 
 Note that this will take some time (minutes), only continue to next steps when you see output like this:
 
 ``` x
-C:\Users\stef>npm i windows-build-tools -g
+C:\Users\stef>npm install --global --production windows-build-tools
 
 > windows-build-tools@2.3.0 postinstall C:\Users\stef\AppData\Roaming\npm\node_modules\windows-build-tools
 > node ./lib/index.js
@@ -43,6 +43,8 @@ updated 1 package in 637.13s
 
 C:\Users\stef>
 ```
+
+If this fails, see page <https://github.com/nodejs/node-gyp> and apply option 2.
 
 ## Visual Code
 
