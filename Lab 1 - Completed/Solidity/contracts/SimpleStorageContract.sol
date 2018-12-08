@@ -1,4 +1,4 @@
-pragma solidity 0.4.19;
+pragma solidity 0.5.0;
 
 
 contract SimpleStorageContract {
@@ -9,15 +9,15 @@ contract SimpleStorageContract {
         storedNumber = value;
     }
 
-    function getNumber() public constant returns (uint) {
+    function getNumber() public view returns (uint) {
         return storedNumber;
     }
 
-    function setString(string value) public {
+    function setString(string memory value) public {
         storedString = value;
     }
 
-    function getString() public constant returns (string) {
+    function getString() public view returns (string memory) {
         return storedString;
     }
 }

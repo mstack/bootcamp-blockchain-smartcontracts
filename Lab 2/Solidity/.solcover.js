@@ -1,3 +1,5 @@
 module.exports = {
-    norpc: true
+    port: 8555,
+    norpc: true,
+    skipFiles: ['contracts/Migrations.sol']
 };

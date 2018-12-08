@@ -1,11 +1,10 @@
-pragma solidity ^0.4.18; // solhint-disable-line
+pragma solidity ^0.5.0; // solhint-disable-line
 
 
 contract MultiplyContract {
     int private _multiplier;
 
-    // Constructor
-    function MultiplyContract(int multiplier) public {
+    constructor(int multiplier) public {
         _multiplier = multiplier;
     }
 
