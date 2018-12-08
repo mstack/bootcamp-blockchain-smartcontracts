@@ -10,15 +10,13 @@ const path = require('path');
 const inputContractFilename = process.argv[2];
 const outputPath = process.argv[3];
 const preferredNamespace = process.argv.length > 4 ? process.argv[4] : 'CustomNameSpace';
+const generateAllContracts = process.argv.length > 5 ? JSON.parse(process.argv[5]) : false;
 
-const contractBasename = path.basename(inputContractFilename);
+const contractBaseFilename = path.basename(inputContractFilename);
+const inputContractContent = fs.readFileSync(inputContractFilename, 'utf-8');
 
-const input = {};
-input[contractBasename] = fs.readFileSync(inputContractFilename, 'utf-8');
-
-function solidityFindImports(contractFilename) {
-    return { contents: fs.readFileSync(path.join(path.dirname(inputContractFilename), contractFilename), 'utf-8') };
-}
+const sources = {};
+sources[contractBaseFilename] = { content: inputContractContent };
 
 function generateContractClass(contractName, ns, abi, code) {
     const abiFormatted = abi.replace(/"/g, '""');
@@ -34,7 +32,26 @@ function generateContractClass(contractName, ns, abi, code) {
     return c;
 }
 
-function generateContractService(inputPath, outPath, contractName, ns, abi, bytecode, generatorName) {
+function stripContractContent(contractContent, baseContractName) {
+    const splitArray = contractContent.split('\r\n');
+
+    const start = baseContractName ? 1 : 0;
+    const end = 6;
+
+    for (let index = start; index <= end; index += 1) {
+        splitArray[index] = '';
+    }
+
+    if (baseContractName) {
+        splitArray[end] = `contract ${baseContractName} {`;
+    }
+
+    splitArray[splitArray.length - 1] = '';
+
+    return splitArray.join('\n');
+}
+
+function generateContractService(outPath, contractName, ns, abi, bytecode, generatorName) {
     const serviceFilename = path.join(`../../Common/Solidity/templates/${generatorName}.ejs`);
     const interfaceFilename = path.join(`../../Common/Solidity/templates/${generatorName}-interface.ejs`);
 
@@ -54,30 +71,68 @@ function generateContractService(inputPath, outPath, contractName, ns, abi, byte
     fs.writeFileSync(path.join(outPath, `${contractName}Service.Generated.cs`), templateService(combinedInput));
 }
 
-console.log('Compiling contracts');
-const optimizeBinaryCode = 1;
-const output = solc.compile({ sources: input }, optimizeBinaryCode, solidityFindImports);
-if (output.errors && output.errors.length > 0) {
-    console.log('ERRORS found !');
-    console.log(JSON.stringify(output.errors, null, 4));
+console.log(`Compiling contracts with solc version '${solc.version()}'`);
+
+// See https://solidity.readthedocs.io/en/latest/using-the-compiler.html#input-description
+const inputObject = {
+    language: 'Solidity',
+    sources,
+    settings: {
+        optimizer: {
+            enabled: true,
+            runs: 10,
+        },
+        outputSelection: {
+            '*': {
+                '*': ['abi', 'evm.bytecode.object'],
+            },
+        },
+    },
+};
+
+const combinedContractName = contractBaseFilename.replace('.sol', '');
+let combinedContractContent = stripContractContent(inputContractContent, combinedContractName);
+function solidityResolveImport(contractFilename) {
+    console.log(`Resolving contract '${contractFilename}'`);
+    const contractContent = fs.readFileSync(path.join(path.dirname(inputContractFilename), contractFilename), 'utf-8');
+
+    combinedContractContent = `${combinedContractContent}${stripContractContent(contractContent)}`;
+
+    return { contents: contractContent };
 }
 
-Object.keys(output.contracts).forEach((key) => {
-    const abi = output.contracts[key].interface;
-    const code = output.contracts[key].bytecode;
+const input = JSON.stringify(inputObject);
+const output = JSON.parse(solc.compile(input, solidityResolveImport));
+if (output.errors && output.errors.length > 0) {
+    console.log(`Errors found:\r\n${JSON.stringify(output.errors, null, 4)}`);
+}
 
-    // Remove the : at the start from the contractName
-    const contractName = key.split(':')[1];
+function generateFilesForContract(contracts, contractFilename) {
+    const contractName = Object.keys(contracts[contractFilename])[0];
+    const abi = JSON.stringify(contracts[contractFilename][contractName].abi);
+    const code = contracts[contractFilename][contractName].evm.bytecode.object;
 
     const abiFilename = path.join(outputPath, `${contractName}.abi`);
+    const binFilename = path.join(outputPath, `${contractName}.bin`);
 
     console.log(`${contractName}: generate ABI and ByteCode`);
     fs.writeFileSync(abiFilename, abi, 'utf-8');
-    fs.writeFileSync(path.join(outputPath, `${contractName}.bin`), code, 'utf-8');
+    fs.writeFileSync(binFilename, abi, 'utf-8');
 
     console.log(`${contractName}: generate C# helper classes`);
     fs.writeFileSync(path.join(outputPath, `${contractName}.Generated.cs`), generateContractClass(contractName, preferredNamespace, abi, code), 'utf-8');
 
-    generateContractService(inputContractFilename, outputPath, contractName, preferredNamespace, abi, code, 'cs-service');
-});
+    generateContractService(outputPath, contractName, preferredNamespace, abi, code, 'cs-service');
+}
+
+console.log(`Generate combined contract file ${contractBaseFilename}`);
+fs.writeFileSync(path.join(outputPath, contractBaseFilename), `${combinedContractContent}\r\n}`, 'utf-8');
+
+if (generateAllContracts) {
+    Object.keys(output.contracts).forEach((contractFilename) => {
+        generateFilesForContract(output.contracts, contractFilename);
+    });
+} else {
+    generateFilesForContract(output.contracts, contractBaseFilename);
+}
 /* eslint-enable no-console */

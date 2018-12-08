@@ -1,6 +1,5 @@
 module.exports = {
-    // See <http://truffleframework.com/docs/advanced/configuration>
-    // to customize your Truffle configuration!
+    // See <http://truffleframework.com/docs/advanced/configuration> to customize your Truffle configuration!
 
     networks: {
         coverage: {
@@ -9,6 +8,19 @@ module.exports = {
             port: 8555,
             gas: 0xfffffffffff,
             gasPrice: 0x01,
+        },
+    },
+
+    compilers: {
+        solc: {
+            version: '0.5.0',
+        },
+    },
+
+    solc: {
+        optimizer: {
+            enabled: true,
+            runs: 10,
         },
     },
 };
