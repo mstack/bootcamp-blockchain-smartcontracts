@@ -4,7 +4,7 @@
   "description": "Lab 1",
   "scripts": {
     "lint": "solhint ./contracts/SimpleStorageContract.sol && solhint ./contracts/MultiplyContract.sol",
-    "test": "truffle test"
+    "test": "node_modules\\.bin\\truffle test"
   },
   "author": "stef.heyenrath@mstack.nl",
   "license": "MIT",
@@ -19,7 +19,7 @@
   "devDependencies": {
     "babel-eslint": "^8.2.2",
     "cash-true": "0.0.2",
-    "chai": "^4.1.2",
+    "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "concurrently": "^3.5.1",
     "ejs-lint": "^0.3.0",
@@ -31,13 +31,13 @@
     "eslint-plugin-react": "^7.7.0",
     "mkdirp": "^0.5.1",
     "rimraf": "^2.6.2",
-    "solhint": "^1.1.10",
-    "solidity-coverage": "^0.4.9",
-    "truffle": "^4.0.6"
+    "solhint": "^1.4.0",
+    "solidity-coverage": "^0.5.11",
+    "truffle": "^5.0.0-beta.2"
   },
   "dependencies": {
     "ejs": "^2.5.7",
-    "solc": "^0.4.19",
+    "solc": "^0.5.0",
     "utf8": "^3.0.0"
   }
 }

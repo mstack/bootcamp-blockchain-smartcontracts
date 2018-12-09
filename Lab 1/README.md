@@ -55,15 +55,17 @@ Go to the terminal in VS Code and type:
 - `npm test` (this command will use [Truffle](https://github.com/trufflesuite/truffle) run the test, and you will see some test fail)
 
 ``` x
-  1) Contract: SimpleStorageContract Set and Get Number:
-     AssertionError: expected { Object (s, e, ...) } to equal 100
-      at Context.it (test\SimpleStorageTests.spec.js:30:16)
+  1) Contract: MultiplyContract
+       Multiply:
+     AssertionError: expected <BN: 2a> to equal 400
+      at Context.it (test\MultiplyTests.spec.js:26:16)
       at <anonymous>
       at process._tickCallback (internal/process/next_tick.js:188:7)
 
-  2) Contract: MultiplyContract Multiply:
-     AssertionError: expected { Object (s, e, ...) } to equal 400
-      at Context.it (test\MultiplyTests.spec.js:26:16)
+  2) Contract: SimpleStorageContract
+       Set and Get Number:
+     AssertionError: expected <BN: 2a> to equal 100
+      at Context.it (test\SimpleStorageTests.spec.js:30:16)
       at <anonymous>
       at process._tickCallback (internal/process/next_tick.js:188:7)
 ```
