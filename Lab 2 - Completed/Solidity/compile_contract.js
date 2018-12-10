@@ -10,7 +10,8 @@ const path = require('path');
 const inputContractFilename = process.argv[2];
 const outputPath = process.argv[3];
 const preferredNamespace = process.argv.length > 4 ? process.argv[4] : 'CustomNameSpace';
-const generateAllContracts = process.argv.length > 5 ? JSON.parse(process.argv[5]) : false;
+const generateAllInterfacesAndImplementations = process.argv.length > 5 ? JSON.parse(process.argv[5]) : false;
+const combineContracts = process.argv.length > 6 ? JSON.parse(process.argv[6]) : false;
 
 const contractBaseFilename = path.basename(inputContractFilename);
 const inputContractContent = fs.readFileSync(inputContractFilename, 'utf-8');
@@ -33,22 +34,34 @@ function generateContractClass(contractName, ns, abi, code) {
 }
 
 function stripContractContent(contractContent, baseContractName) {
-    const splitArray = contractContent.split('\r\n');
+    const lines = contractContent.split('\r\n');
 
-    const start = baseContractName ? 1 : 0;
-    const end = 6;
+    for (let index = 0; index < lines.length; index += 1) {
+        // Remove pragma solidity, except for baseContract
+        if (lines[index].startsWith('pragma solidity')) {
+            if (!baseContractName) {
+                lines[index] = '';
+            }
+        }
 
-    for (let index = start; index <= end; index += 1) {
-        splitArray[index] = '';
+        // Remove all import statements
+        if (lines[index].startsWith('import')) {
+            lines[index] = '';
+        }
+
+        // Remove all contract lines, except for baseContract
+        if (lines[index].startsWith('contract')) {
+            if (baseContractName) {
+                lines[index] = `contract ${baseContractName} {`;
+            } else {
+                lines[index] = '';
+            }
+        }
     }
 
-    if (baseContractName) {
-        splitArray[end] = `contract ${baseContractName} {`;
-    }
+    lines[lines.length - 1] = '';
 
-    splitArray[splitArray.length - 1] = '';
-
-    return splitArray.join('\n');
+    return lines.join('\r\n');
 }
 
 function generateContractService(outPath, contractName, ns, abi, bytecode, generatorName) {
@@ -62,11 +75,11 @@ function generateContractService(outPath, contractName, ns, abi, bytecode, gener
         namespace: ns,
     };
 
-    console.log(`${contractName}: generate C# interfaces`);
+    console.log(`${contractName}: generate C# interface(s)`);
     const templateInterface = ejs.compile(fs.readFileSync(interfaceFilename, 'utf8'));
     fs.writeFileSync(path.join(outPath, `I${contractName}Service.Generated.cs`), templateInterface(combinedInput));
 
-    console.log(`${contractName}: generate C# implementations`);
+    console.log(`${contractName}: generate C# implementation(s)`);
     const templateService = ejs.compile(fs.readFileSync(serviceFilename, 'utf8'));
     fs.writeFileSync(path.join(outPath, `${contractName}Service.Generated.cs`), templateService(combinedInput));
 }
@@ -96,7 +109,9 @@ function solidityResolveImport(contractFilename) {
     console.log(`Resolving contract '${contractFilename}'`);
     const contractContent = fs.readFileSync(path.join(path.dirname(inputContractFilename), contractFilename), 'utf-8');
 
-    combinedContractContent = `${combinedContractContent}${stripContractContent(contractContent)}`;
+    if (combineContracts) {
+        combinedContractContent = `${combinedContractContent}${stripContractContent(contractContent)}`;
+    }
 
     return { contents: contractContent };
 }
@@ -125,10 +140,12 @@ function generateFilesForContract(contracts, contractFilename) {
     generateContractService(outputPath, contractName, preferredNamespace, abi, code, 'cs-service');
 }
 
-console.log(`Generate combined contract file ${contractBaseFilename}`);
-fs.writeFileSync(path.join(outputPath, contractBaseFilename), `${combinedContractContent}\r\n}`, 'utf-8');
+if (combineContracts) {
+    console.log(`Generate combined contract file '${contractBaseFilename}'`);
+    fs.writeFileSync(path.join(outputPath, contractBaseFilename), `${combinedContractContent}\r\n}`, 'utf-8');
+}
 
-if (generateAllContracts) {
+if (generateAllInterfacesAndImplementations) {
     Object.keys(output.contracts).forEach((contractFilename) => {
         generateFilesForContract(output.contracts, contractFilename);
     });

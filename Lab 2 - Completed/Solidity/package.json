@@ -5,7 +5,7 @@
   "scripts": {
     "clean": "rimraf ./contracts/build/*.*",
     "lint": "solhint ./contracts/SimpleStorageContract.sol",
-    "coverage": "npm run clean && nodetouch allFiredEvents && concurrently --names \"TestRPC,Coverage\" --kill-others \"node_modules\\.bin\\testrpc-sc --port 8555\" \"node_modules\\.bin\\solidity-coverage\" || true",
+    "coverage": "npm run clean && concurrently --names \"GanacheCLI,Coverage\" --kill-others \"node_modules\\.bin\\ganache-cli --quiet --port 8555 --gasPrice 0x01 --gasLimit 0xfffffffffff --allowUnlimitedContractSize\" \"node_modules\\.bin\\solidity-coverage\" || true",
     "ejs-lint": "ejslint ../../Common/templates/*.ejs",
     "build-only": "mkdirp ./contracts/build && node ./compile_contract ./contracts/SimpleStorageContract.sol ./contracts/build Lab2.SmartContracts",
     "build": "npm test && npm run build-only",
@@ -39,7 +39,6 @@
     "rimraf": "^2.6.2",
     "solhint": "^1.4.0",
     "solidity-coverage": "^0.5.11",
-    "touch": "^3.1.0",
     "truffle": "^5.0.0-beta.2"
   },
   "dependencies": {
