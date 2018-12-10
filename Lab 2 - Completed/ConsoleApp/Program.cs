@@ -38,8 +38,8 @@ namespace ConsoleApp
 
             var web3 = new Web3Geth(account, Endpoint);
 
-            bool deployNewContract = true; // TODO 0
-            string contractAddress = null; // TODO 0
+            bool deployNewContract = true;
+            string contractAddress = null;
             if (deployNewContract)
             {
                 var gasForDeployContract = new HexBigInteger(3000000);
@@ -48,23 +48,18 @@ namespace ConsoleApp
                 Console.WriteLine($"Deploying contract done, address = {contractAddress}");
             }
 
-            // Create an instance from the SimpleStorageContractService service which
-            // abstracts all calls to the SmartContract.
+            // Create an instance from the SimpleStorageContractService service which abstracts all calls to the SmartContract.
             ISimpleStorageContractService service = new SimpleStorageContractService(web3, contractAddress);
 
-            // TODO 1:
-            // bool setNumberResult = await service.ExecuteTransactionAsync(srv => srv.SetNumberAsync(fromAddress, 500));
+            bool setNumberResult = await service.ExecuteTransactionAsync(srv => srv.SetNumberAsync(fromAddress, 500));
 
-            // TODO 2:
-            // var getNumberValue = await service.GetNumberCallAsync(fromAddress);
-            // Console.WriteLine($"The stored number value is '{getNumberValue}'.");
+            var getNumberValue = await service.GetNumberCallAsync(fromAddress);
+            Console.WriteLine($"The stored number value is '{getNumberValue}'.");
 
-            // TODO 3:
-            // bool setStringResult =  await service.ExecuteTransactionAsync(srv => srv.SetStringAsync(fromAddress, "mstack.nl test"));
+            bool setStringResult =  await service.ExecuteTransactionAsync(srv => srv.SetStringAsync(fromAddress, "mstack.nl test"));
 
-            // TODO 4:
-            // var getStringValue = await service.GetStringCallAsync(fromAddress);
-            // Console.WriteLine($"The stored string value is '{getStringValue}'.");
+            var getStringValue = await service.GetStringCallAsync(fromAddress);
+            Console.WriteLine($"The stored string value is '{getStringValue}'.");
         }
     }
 }

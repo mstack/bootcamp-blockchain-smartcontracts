@@ -44,7 +44,9 @@ updated 1 package in 637.13s
 C:\Users\stef>
 ```
 
-If this fails, see page <https://github.com/nodejs/node-gyp> and apply option 2.
+## Ganache
+
+- Install Ganache (personal Ethereum blockchain) from [truffleframework.com/ganache](https://truffleframework.com/ganache).
 
 ## Visual Code
 

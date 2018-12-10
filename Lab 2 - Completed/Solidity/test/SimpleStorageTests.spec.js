@@ -29,7 +29,16 @@ contract('SimpleStorageContract', () => {
     });
 
     it('Set and Get Number (test 2)', async () => {
-        // TODO
+        // Assign
+        const value = 42;
+
+        // Act
+        await contract.setNumber(value);
+
+        const result = await contract.getNumber();
+
+        // Assert
+        assert.equal(result, 42);
     });
 
     it('Set and Get String', async () => {
@@ -45,12 +54,12 @@ contract('SimpleStorageContract', () => {
         assert.equal(result, 'mstack.nl');
     });
 
-    // it('getVersion', async () => {
-    //     // Act
-    //     const result = await contract.getVersion();
+    it('getVersion', async () => {
+        // Act
+        const result = await contract.getVersion();
 
-    //     // Assert
-    //     assert.equal(result.version, 1);
-    //     assert.equal(result.description, 'version by mstack.nl');
-    // });
+        // Assert
+        assert.equal(result.version, 1);
+        assert.equal(result.description, 'version by mstack.nl');
+    });
 });
