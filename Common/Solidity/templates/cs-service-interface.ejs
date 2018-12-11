@@ -1,8 +1,9 @@
 using System;
-using System.Threading.Tasks;
 using System.Numerics;
-using Nethereum.Hex.HexTypes;
+using System.Threading.Tasks;
 using Nethereum.Contracts;
+using Nethereum.Hex.HexTypes;
+using Nethereum.RPC.Eth.DTOs;
 
 // Created with 'Solidity to C# generator' by stef.heyenrath@mstack.nl (mStack B.V.)
 // Based on abi-code-gen (https://github.com/Nethereum/abi-code-gen)
@@ -10,9 +11,11 @@ namespace <%= locals.namespace ? namespace : 'DefaultNamespace' %>
 {
     public interface I<%= capitalizeFirstLetter(getContractName()) %>Service
     {
-        Task<bool> ExecuteTransactionAsync(Func<I<%= capitalizeFirstLetter(getContractName()) %>Service, Task<string>> func, int timeoutInSeconds = 120);
+        Task<TransactionReceipt> ExecuteTransactionAsync(Func<I<%= capitalizeFirstLetter(getContractName()) %>Service, Task<string>> func, int timeoutInSeconds = 120);
 
-<%= abi.forEach(generateGetFunction) %>
+        Task<BlockWithTransactions> GetBlockWithTransactionsAsync(string blockhash);
+
+<%#= abi.forEach(generateGetFunction) %>
 <%= abi.forEach(generateGetEvent) %>
 <%= abi.forEach(generateFunctionCall) %>
 <%= abi.forEach(generateFunctionTransaction) %>
@@ -229,7 +232,8 @@ _%>
 _%>
 <%_ function generateGetEvent(item) { _%>
     <%_ if (item.type === 'event') { _%>
-        Event Get<%= capitalizeFirstLetter(item.name) %>();
+        <%_ var eventName = capitalizeFirstLetter(item.name); _%>
+        Event<<%=eventName%>> Get<%=eventName%>();
 <%_ } }
 _%>
 <%_ function generateFunctionCall_Original(item) { _%>
@@ -265,12 +269,6 @@ _%>
 
 <%_ }
 _%>
-<%_ function generateEventDTOProperty(param, index) { _%>
-        [Parameter("<%=param.type%>", "<%=param.name%>", <%=index + 1%>, <%= param.indexed ? 'true' : 'false'%>)]
-        public <%-getTypeMap(param.type)-%> <%-capitalizeFirstLetter(getParamName(param.name, index))-%> {get; set;}
-
-<%_ }
-_%>
 <%_ function generateFunctionOutputDTO(item) { _%>
     <%_ if (item.type === 'function' && item.outputs !== null && item.outputs.length > 1 ) { _%>
     [FunctionOutput]
@@ -280,11 +278,4 @@ _%>
     }
 <%_ } }
 _%>
-<%_ function generateEventDTO(item) { _%>
-    <%_ if (item.type === 'event' && item.inputs !== null && item.inputs.length > 1 ) { _%>
-    public class <%=capitalizeFirstLetter(item.name)%>Event
-    {
-<%- item.inputs.forEach(generateEventDTOProperty) -%>
-    }
-<%_ } }
 _%>

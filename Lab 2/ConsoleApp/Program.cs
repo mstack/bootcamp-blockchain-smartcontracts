@@ -43,7 +43,7 @@ namespace ConsoleApp
             if (deployNewContract)
             {
                 var gasForDeployContract = new HexBigInteger(3000000);
-                Console.WriteLine("Deploying contract (can take some time)");
+                Console.WriteLine("Deploying contract");
                 contractAddress = await SimpleStorageContractService.DeployContractAsync(web3, fromAddress, 1, "mstack.nl", null, gasForDeployContract);
                 Console.WriteLine($"Deploying contract done, address = {contractAddress}");
             }
@@ -53,14 +53,14 @@ namespace ConsoleApp
             ISimpleStorageContractService service = new SimpleStorageContractService(web3, contractAddress);
 
             // TODO 1:
-            // bool setNumberResult = await service.ExecuteTransactionAsync(srv => srv.SetNumberAsync(fromAddress, 500));
+            // var setNumberResult = await service.ExecuteTransactionAsync(srv => srv.SetNumberAsync(fromAddress, 500));
 
             // TODO 2:
             // var getNumberValue = await service.GetNumberCallAsync(fromAddress);
             // Console.WriteLine($"The stored number value is '{getNumberValue}'.");
 
             // TODO 3:
-            // bool setStringResult =  await service.ExecuteTransactionAsync(srv => srv.SetStringAsync(fromAddress, "mstack.nl test"));
+            // var setStringResult =  await service.ExecuteTransactionAsync(srv => srv.SetStringAsync(fromAddress, "mstack.nl test"));
 
             // TODO 4:
             // var getStringValue = await service.GetStringCallAsync(fromAddress);

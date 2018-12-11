@@ -43,7 +43,7 @@ namespace ConsoleApp
             if (deployNewContract)
             {
                 var gasForDeployContract = new HexBigInteger(3000000);
-                Console.WriteLine("Deploying contract (can take some time)");
+                Console.WriteLine("Deploying contract");
                 contractAddress = await SimpleStorageContractService.DeployContractAsync(web3, fromAddress, 1, "mstack.nl", null, gasForDeployContract);
                 Console.WriteLine($"Deploying contract done, address = {contractAddress}");
             }
@@ -51,12 +51,12 @@ namespace ConsoleApp
             // Create an instance from the SimpleStorageContractService service which abstracts all calls to the SmartContract.
             ISimpleStorageContractService service = new SimpleStorageContractService(web3, contractAddress);
 
-            bool setNumberResult = await service.ExecuteTransactionAsync(srv => srv.SetNumberAsync(fromAddress, 500));
+            var setNumberResult = await service.ExecuteTransactionAsync(srv => srv.SetNumberAsync(fromAddress, 500));
 
             var getNumberValue = await service.GetNumberCallAsync(fromAddress);
             Console.WriteLine($"The stored number value is '{getNumberValue}'.");
 
-            bool setStringResult =  await service.ExecuteTransactionAsync(srv => srv.SetStringAsync(fromAddress, "mstack.nl test"));
+            var setStringResult = await service.ExecuteTransactionAsync(srv => srv.SetStringAsync(fromAddress, "mstack.nl test"));
 
             var getStringValue = await service.GetStringCallAsync(fromAddress);
             Console.WriteLine($"The stored string value is '{getStringValue}'.");

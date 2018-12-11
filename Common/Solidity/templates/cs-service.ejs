@@ -1,10 +1,11 @@
 using System;
+using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Numerics;
-using Nethereum.Hex.HexTypes;
-using Nethereum.ABI.FunctionEncoding.Attributes;
 using Nethereum.Contracts;
+using Nethereum.ABI.FunctionEncoding.Attributes;
+using Nethereum.Hex.HexTypes;
+using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Web3;
 
 // Created with 'Solidity to C# generator' by stef.heyenrath@mstack.nl (mStack B.V.)
@@ -38,7 +39,7 @@ namespace <%= locals.namespace ? namespace : 'DefaultNamespace' %>
             _contract = _web3.Eth.GetContract(ABI, address);
         }
 
-        public async Task<bool> ExecuteTransactionAsync(Func<I<%= capitalizeFirstLetter(getContractName()) %>Service, Task<string>> func, int timeoutInSeconds)
+        public async Task<TransactionReceipt> ExecuteTransactionAsync(Func<I<%= capitalizeFirstLetter(getContractName()) %>Service, Task<string>> func, int timeoutInSeconds)
         {
             var cts = new CancellationTokenSource(TimeSpan.FromSeconds(timeoutInSeconds));
 
@@ -51,7 +52,12 @@ namespace <%= locals.namespace ? namespace : 'DefaultNamespace' %>
                 receipt = await _web3.Eth.Transactions.GetTransactionReceipt.SendRequestAsync(transaction).ConfigureAwait(false);
             }
 
-            return receipt != null;
+            return receipt;
+        }
+
+        public Task<BlockWithTransactions> GetBlockWithTransactionsAsync(string blockhash)
+        {
+            return _web3.Eth.Blocks.GetBlockWithTransactionsByHash.SendRequestAsync(blockhash);
         }
 
 <%= abi.forEach(generateGetFunction) %>
@@ -270,7 +276,7 @@ function getTypeMap(typeName) {
 _%>
 <%_ function generateGetFunction(item) { _%>
     <%_ if (item.type === 'function') { _%>
-        public Function GetFunction<%= capitalizeFirstLetter(item.name) %>()
+        private Function GetFunction<%= capitalizeFirstLetter(item.name) %>()
         {
             return _contract.GetFunction("<%=item.name%>");
         }
@@ -279,9 +285,10 @@ _%>
 _%>
 <%_ function generateGetEvent(item) { _%>
     <%_ if (item.type === 'event') { _%>
-        public Event Get<%= capitalizeFirstLetter(item.name) %>()
+        <%_ var eventName = capitalizeFirstLetter(item.name); _%>
+        public Event<<%=eventName%>> Get<%=eventName%>()
         {
-            return _contract.GetEvent("<%=item.name%>");
+            return _contract.GetEvent<<%=eventName%>>("<%=item.name%>");
         }
 
 <%_ } }
@@ -393,7 +400,9 @@ _%>
 _%>
 <%_ function generateEventDTO(item) { _%>
     <%_ if (item.type === 'event' && item.inputs !== null && item.inputs.length > 1 ) { _%>
-    public class <%=capitalizeFirstLetter(item.name)%>
+    <%_ var eventName = capitalizeFirstLetter(item.name); _%>
+    [Event("<%=eventName%>")]
+    public class <%=eventName%> : IEventDTO
     {
 <%- item.inputs.forEach(generateEventDTOProperty) -%>
     }
