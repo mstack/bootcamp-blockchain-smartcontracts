@@ -47,13 +47,13 @@ namespace ConsoleApp
             // abstracts all calls to the SmartContract.
             ISimpleStorageContractService service = new SimpleStorageContractService(web3, contractAddress);
 
-            bool setNumberResult = await service.ExecuteTransactionAsync(srv => srv.SetNumberAsync(fromAddress, 500)).ConfigureAwait(false);
+            var setNumberResult = await service.ExecuteTransactionAsync(srv => srv.SetNumberAsync(fromAddress, 500)).ConfigureAwait(false);
             Console.WriteLine($"setNumberResult = '{setNumberResult}'.");
 
             var getNumberValue = await service.GetNumberCallAsync(fromAddress).ConfigureAwait(false);
             Console.WriteLine($"The stored number value is '{getNumberValue}'.");
 
-            bool setStringResult = await service.ExecuteTransactionAsync(srv => srv.SetStringAsync(fromAddress, "mstack.nl test"));
+            var setStringResult = await service.ExecuteTransactionAsync(srv => srv.SetStringAsync(fromAddress, "mstack.nl test"));
             Console.WriteLine($"setStringResult = '{setStringResult}'.");
 
             var getStringValue = await service.GetStringCallAsync(fromAddress).ConfigureAwait(false);
