@@ -1,0 +1,53 @@
+{
+  "name": "supplychainlog",
+  "version": "1.0.0",
+  "description": "SupplyChainLog",
+  "scripts": {
+    "clean": "rimraf ./contracts/build/*.*",
+    "lint": "npm run clean && solhint ./contracts/SupplyChainLogContract.sol",
+    "lint-sol": "npm run clean && solium -d contracts",
+    "coverage": "npm run clean && node_modules\\.bin\\nodetouch allFiredEvents && concurrently --names \"GanacheCLI,Coverage\" --kill-others \"node_modules\\.bin\\testrpc-sc --port 8555 --gasPrice 0x01 --gasLimit 0xfffffffffff --allowUnlimitedContractSize\" \"node_modules\\.bin\\solidity-coverage\" || true",
+    "ejs-lint": "ejslint ../../Common/templates/*.ejs",
+    "build": "npm test && mkdirp ./contracts/build && npm run generate",
+    "generate": "npm run clean && mkdirp ./contracts/build && node ./compile_contract ./contracts/SupplyChainLogContract.sol ./contracts/build SupplyChain.BlockChain.SmartContracts false true",
+    "test": "npm run clean && npm run lint && node_modules\\.bin\\truffle test"
+  },
+  "author": "Stef Heyenrath",
+  "license": "MIT",
+  "engines": {
+    "node": ">=7.0.0",
+    "npm": ">=6.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://mstack.visualstudio.com/_git/SupplyChainLog"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.2.2",
+    "cash-true": "0.0.2",
+    "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
+    "concurrently": "^3.5.1",
+    "coveralls": "^3.0.2",
+    "ejs-lint": "^0.3.0",
+    "eslint": "^4.18.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-jasmine": "^2.9.3",
+    "eslint-plugin-mocha": "^4.11.0",
+    "eslint-plugin-react": "^7.7.0",
+    "mkdirp": "^0.5.1",
+    "rimraf": "^2.6.2",
+    "solhint": "^1.4.1",
+    "solidity-coverage": "^0.5.11",
+    "touch": "^3.1.0",
+    "truffle-assertions": "^0.7.1"
+  },
+  "dependencies": {
+    "ejs": "^2.5.7",
+    "solc": "^0.5.0",
+    "solium": "^1.1.8",
+    "truffle": "^5.0.0-next.25",
+    "utf8": "^3.0.0"
+  }
+}
