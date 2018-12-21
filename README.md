@@ -28,3 +28,7 @@ This lab will continue on the basics from Lab 1 and adds the following items you
 This lab continues on Lab 2 and adds the following new things you will learn:
 
 - Deploy the SmartContract to the Azure Blockchain as a Service (based on Ethereum Consortium Blockchain)
+
+## Lab 4 (Advanced)
+
+This lab is a working example SupplyChainLog including unit-tests, coverage, code-generation and example console-app connnecting to Ganache.

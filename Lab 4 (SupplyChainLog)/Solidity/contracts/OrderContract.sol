@@ -1,4 +1,4 @@
-pragma solidity ^0.5.1; // solhint-disable-line
+pragma solidity ^0.5.2;
 
 
 import "./AuthorizationContract.sol";

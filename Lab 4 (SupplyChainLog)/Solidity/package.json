@@ -45,9 +45,9 @@
   },
   "dependencies": {
     "ejs": "^2.5.7",
-    "solc": "^0.5.0",
+    "solc": "^0.5.2",
     "solium": "^1.1.8",
-    "truffle": "^5.0.0-next.25",
+    "truffle": "^5.0.0",
     "utf8": "^3.0.0"
   }
 }
