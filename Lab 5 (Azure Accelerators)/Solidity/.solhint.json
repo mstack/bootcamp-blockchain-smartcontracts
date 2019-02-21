@@ -1,0 +1,21 @@
+{
+    "extends": "default",
+    "rules": {
+        "indent": [
+            "error",
+            4
+        ],
+        "quotes": [
+            "error",
+            "double"
+        ],
+        "max-line-length": [
+            "error",
+            200
+        ],
+        "var-name-mixedcase": false,
+        "func-name-mixedcase": false,
+        "func-param-name-mixedcase": false,
+        "code-complexity": false
+    }
+}

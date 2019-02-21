@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Solidity\contracts\build\IVehicle1Service.Generated.cs" Link="IVehicle1Service.Generated.cs" />
+    <Compile Include="..\Solidity\contracts\build\IVehicleRegistry1Service.Generated.cs" Link="IVehicleRegistry1Service.Generated.cs" />
+    <Compile Include="..\Solidity\contracts\build\Vehicle1Service.Generated.cs" Link="Vehicle1Service.Generated.cs" />
+    <Compile Include="..\Solidity\contracts\build\VehicleRegistry1Service.Generated.cs" Link="VehicleRegistry1Service.Generated.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Nethereum.Geth" Version="3.0.0" />
+    <PackageReference Include="Nethereum.Web3" Version="3.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+  </ItemGroup>
+
+</Project>

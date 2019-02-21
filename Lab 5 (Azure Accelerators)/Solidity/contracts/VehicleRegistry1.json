@@ -1,0 +1,290 @@
+{
+  "ApplicationName": "VehicleRegistry1",
+  "DisplayName": "Vehicle Registry 1",
+  "Description": "A contract to track registered Vehicles",
+  "ApplicationRoles": [
+    {
+      "Name": "Registrar",
+      "Description": "Registrar"
+    },
+    {
+      "Name": "Registrant",
+      "Description": "Registrant"
+    },
+    {
+      "Name": "BlockchainAgent",
+      "Description": "BlockchainAgent of the Vehicle"
+    }
+  ],
+  "Workflows": [
+    {
+      "Name": "VehicleRegistry1",
+      "DisplayName": "Vehicle Registry",
+      "Description": "Registry to track Vehicles",
+      "Initiators": ["Registrar"],
+      "StartState":  "Created",
+      "Properties": [
+        {
+          "Name": "State",
+          "DisplayName": "State",
+          "Description": "Holds the state of the current scope",
+          "Type": {
+            "Name": "state"
+          }
+        }
+      ],
+      "Constructor": {
+        "Parameters": [
+            {
+              "Name": "_Name",
+              "Description": "The name of the registry.",
+              "DisplayName": "Registry Name",
+              "Type": {
+                "Name": "string"
+              }
+            },
+            {
+              "Name": "_Description",
+              "Description": "Description of the registry.",
+              "DisplayName": "Description",
+              "Type": {
+                "Name": "string"
+              }
+            }        
+        ]
+      },
+      "Functions": [
+        {
+          "Name": "OpenRegistry",
+          "DisplayName": "Open Registry",
+          "Description": "Opens the registry for business.",
+          "Parameters": [
+            ]
+        },
+        {
+            "Name": "RegisterVehicle",
+            "DisplayName": "Register Vehicle",
+            "Description": "Add a Vehicle to a registry.",
+            "Parameters": [
+                {
+                    "Name": "_LicenseNumber",
+                    "Description": "Vehicle LicenseNumber",
+                    "DisplayName": "VehicleLicenseNumber",
+                    "Type": {
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Name": "_VIN",
+                    "Description": "Vehicle VIN",
+                    "DisplayName": "VehicleVIN",
+                    "Type": {
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Name": "_ContractAddress",
+                    "Description": "Vehicle ContractAddress",
+                    "DisplayName": "VehicleContractAddress",
+                    "Type": {
+                        "Name": "address"
+                    }
+                }
+            ]
+        },
+        {
+          "Name": "CloseRegistry",
+          "DisplayName": "Close Registry",
+          "Description": "Closes the registry.",
+          "Parameters": []
+        }
+      ],
+      "States": [
+        {
+          "Name": "Created",
+          "DisplayName": "Registry Created",
+          "Description": "The registry is created.",
+          "PercentComplete": 40,
+          "Style": "Success",
+          "Transitions": [
+            {
+              "AllowedRoles": ["Registrar"],
+              "AllowedInstanceRoles": [],
+              "Description": "Open the Registry",
+              "Function": "OpenRegistry",
+              "NextStates": [ "Open" ],
+              "DisplayName": "Registry opened."
+            }
+          ]
+        },
+        {
+          "Name": "Open",
+          "DisplayName": "Registry Opened",
+          "Description": "Retired",
+          "PercentComplete": 100,
+          "Style": "Success",
+          "Transitions": [
+            {
+                "AllowedRoles": ["Registrant", "Registrar"],
+                "AllowedInstanceRoles": [],
+                "Description": "registerVehicle",
+                "Function": "RegisterVehicle",
+                "NextStates": [ "Open" ],
+                "DisplayName": "Vehicle registered."
+            },
+            {
+                "AllowedRoles": ["Registrar"],
+                "AllowedInstanceRoles": [],
+                "Description": "Close the registry.",
+                "Function": "CloseRegistry",
+                "NextStates": [ "Closed" ],
+                "DisplayName": "Registry closed."
+            }
+           ]
+        },
+        {
+          "Name": "Closed",
+          "DisplayName": "Retired",
+          "Description": "Retired",
+          "PercentComplete": 100,
+          "Style": "Success",
+          "Transitions": []
+        }
+      ]
+    },
+    {
+        "Name": "Vehicle1",
+        "DisplayName": "Vehicle",
+        "Description": "Vehicle being registered",
+        "Initiators": ["BlockchainAgent"],
+        "StartState":  "Active",
+        "Properties": [
+            {
+                "Name": "State",
+                "DisplayName": "State",
+                "Description": "Holds the state of the current scope",
+                "Type": {
+                  "Name": "state"
+                }
+            }, 
+            {
+                "Name": "LicenseNumber",
+                "Description": "Vehicle LicenseNumber",
+                "DisplayName": "VehicleLicenseNumber",
+                "Type": {
+                    "Name": "string"
+                }
+            },
+            {
+                "Name": "VIN",
+                "Description": "Vehicle VIN",
+                "DisplayName": "VehicleVIN",
+                "Type": {
+                    "Name": "string"
+                }
+            },
+            {
+                "Name": "Color",
+                "Description": "Vehicle Color",
+                "DisplayName": "VehicleColor",
+                "Type": {
+                    "Name": "string"
+                }
+            },
+            {
+                "Name": "RetirementRecordedDateTime",
+                "DisplayName": "Retired Date",
+                "Description": "The UTC Date and Time the file was processed",
+                "Type": {
+                "Name": "string"
+                }
+            }
+        ],
+        "Constructor": {
+          "Parameters": [
+            {
+              "Name": "_RegistryAddress",
+              "DisplayName": "Registry Address",
+              "Description": "The address of the registry",
+              "Type": {
+                "Name": "string"
+              }
+            },
+            {
+                "Name": "_LicenseNumber",
+                "Description": "Vehicle LicenseNumber",
+                "DisplayName": "VehicleLicenseNumber",
+                "Type": {
+                    "Name": "string"
+                }
+            },
+            {
+                "Name": "_VIN",
+                "Description": "Vehicle VIN",
+                "DisplayName": "VehicleVIN",
+                "Type": {
+                    "Name": "string"
+                }
+            },
+            {
+                "Name": "_Color",
+                "Description": "Vehicle Color",
+                "DisplayName": "VehicleColor",
+                "Type": {
+                    "Name": "string"
+                }
+            }          ]
+        },
+
+
+        "Functions": [
+
+
+
+          {
+            "Name": "Retire",
+            "DisplayName": "Retire Vehicle",
+            "Description": "Change registry status to retire.",
+            "Parameters": [
+              {
+                "Name": "retirementRecordedDateTime",
+                "Description": "Date and time the agent processed the retirement",
+                "DisplayName": "Retirement Recorded Date Time",
+                "Type": {
+                  "Name": "string"
+                }
+              }
+            ]
+          }
+        ],
+        "States": [
+          {
+            "Name": "Active",
+            "DisplayName": "Vehicle Active",
+            "Description": "Vehicle Active",
+            "PercentComplete": 40,
+            "Style": "Success",
+            "Transitions": [
+              {
+                "AllowedRoles": ["BlockchainAgent"],
+                "AllowedInstanceRoles": [],
+                "Description": "Retire Vehicle",
+                "Function": "Retire",
+                "NextStates": [ "Retired" ],
+                "DisplayName": "Vehicle retired."
+              }
+  
+            ]
+          },
+          {
+            "Name": "Retired",
+            "DisplayName": "Retired",
+            "Description": "Retired",
+            "PercentComplete": 100,
+            "Style": "Success",
+            "Transitions": []
+          }
+        ]
+      }        
+  ]
+}
