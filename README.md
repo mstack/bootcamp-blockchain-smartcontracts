@@ -32,3 +32,7 @@ This lab continues on Lab 2 and adds the following new things you will learn:
 ## Lab 4 (Advanced)
 
 This lab is a working example SupplyChainLog including unit-tests, coverage, code-generation and example console-app connnecting to Ganache.
+
+## Lab 5 (Advanced)
+
+This lab is using the [Azure Accelerators - registry-generator](https://github.com/Azure-Samples/blockchain/tree/master/blockchain-development-kit/accelerators/registry-generator) example.

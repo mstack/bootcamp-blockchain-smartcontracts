@@ -8,7 +8,7 @@ The following tools and software needs to be installed:
 
 ## Node
 
-- Install NPM and [Node.js](https://nodejs.org/en/) version 7 or 8.
+- Install NPM and [Node.js](https://nodejs.org/en/) version 8.9.4 or higher.
 
 ## Windows Build Tools
 
