@@ -58,8 +58,11 @@ namespace ConsoleAppGanache
             bool isRegistered = await registryService.IsRegisteredVehicleLicenseNumberCallAsync("L-9999");
             Console.WriteLine(isRegistered);
 
-            string licenseNumber = await vehicleService1.LicenseNumberCallAsync();
-            Console.WriteLine(licenseNumber);
+            string licenseNumber = await vehicleService2.LicenseNumberCallAsync();
+            Console.WriteLine("licenseNumber = " + licenseNumber);
+
+            string mediaUrl = await vehicleService2.MediaUriCallAsync();
+            Console.WriteLine("mediaUrl = " + mediaUrl);
         }
 
         private static async Task OpenVehicleRegistryAsync()
@@ -105,6 +108,17 @@ namespace ConsoleAppGanache
             _vehicleAddress2 = await Vehicle1Service.DeployContractAsync(web3, ContractOwner.Address, _registryAddress, "L-9999", _vin2, "red", 2018, null, gasForDeployContract);
             Console.WriteLine("_vehicleAddress2 = " + _vehicleAddress2);
             vehicleService2 = new Vehicle1Service(web3, _vehicleAddress2);
+
+            Func<IVehicle1Service, Task<string>> func = (srv) => srv.AddMediaAsync(ContractOwner.Address,
+                "https://github.com/StefH/QboxNext/blob/master/resources/logo_256x256.png?raw=true",
+                "Hash",
+                "MetaDataHash");
+            var receipt = await vehicleService2.ExecuteTransactionAsync(func);
+
+            await vehicleService2.AddMediaAsync(ContractOwner.Address,
+                "https://github.com/StefH/QboxNext/blob/master/resources/logo_256x256.png?raw=true",
+                "Hash",
+                "MetaDataHash");
         }
     }
 }
