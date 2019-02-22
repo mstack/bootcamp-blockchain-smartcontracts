@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Web;
-
-namespace PatternCodeGen.CodeGen
+﻿namespace PatternCodeGen.CodeGen
 {
     public partial class RegistryContractGen : CodeGen
     {
         public string UtilsGen()
         {
             return
-$@"    /******************* Utils functions *******************************************/   
+$@"    /******************* Utils functions *******************************************/
     function stringToBytes32(string memory source) public pure returns (bytes32 result) {{
         bytes memory tempEmptyStringTest = bytes(source);
         if (tempEmptyStringTest.length == 0) {{

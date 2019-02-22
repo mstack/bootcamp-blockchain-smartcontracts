@@ -39,13 +39,13 @@
     "solhint": "^1.4.1",
     "solidity-coverage": "^0.5.11",
     "touch": "^3.1.0",
-    "truffle-assertions": "^0.7.1"
+    "truffle-assertions": "^0.8.0"
   },
   "dependencies": {
     "ejs": "^2.5.7",
     "solc": "^0.5.2",
     "solium": "^1.1.8",
-    "truffle": "^5.0.0",
+    "truffle": "^5.0.5",
     "utf8": "^3.0.0"
   }
 }

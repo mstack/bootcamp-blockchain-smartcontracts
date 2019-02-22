@@ -192,6 +192,14 @@
                 }
             },
             {
+                "Name": "Year",
+                "Description": "Vehicle Year",
+                "DisplayName": "VehicleYear",
+                "Type": {
+                    "Name": "uint"
+                }
+            },
+            {
                 "Name": "RetirementRecordedDateTime",
                 "DisplayName": "Retired Date",
                 "Description": "The UTC Date and Time the file was processed",
@@ -233,6 +241,14 @@
                 "Type": {
                     "Name": "string"
                 }
+            },
+            {
+                "Name": "_Year",
+                "Description": "Vehicle Year",
+                "DisplayName": "VehicleYear",
+                "Type": {
+                    "Name": "uint"
+                }
             }          ]
         },
 
@@ -240,6 +256,37 @@
         "Functions": [
 
 
+          {
+            "Name": "AddMedia",
+            "DisplayName": "AddMedia",
+            "Description": "Add a media to this Vehicle .",
+            "Parameters": [
+                          {
+                "Name": "_MediaUri",
+                "Description": "Media Uri",
+                "DisplayName": "MediaUri",
+                "Type": {
+                    "Name": "string"
+                }
+            },
+            {
+                "Name": "_MediaHash",
+                "Description": "Media Hash",
+                "DisplayName": "MediaHash",
+                "Type": {
+                    "Name": "string"
+                }
+            },
+            {
+                "Name": "_MediaMetadataHash",
+                "Description": "Media Metadata Hash",
+                "DisplayName": "MediaMetadataHash",
+                "Type": {
+                    "Name": "string"
+                }
+            }
+            ]
+          },
 
           {
             "Name": "Retire",

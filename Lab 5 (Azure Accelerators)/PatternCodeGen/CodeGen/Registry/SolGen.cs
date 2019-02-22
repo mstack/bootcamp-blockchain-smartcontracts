@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Web;
 
 namespace PatternCodeGen.CodeGen
 {
@@ -31,7 +30,7 @@ namespace PatternCodeGen.CodeGen
                     );
             if (EmitType)
             {
-                paramList.AddRange(whereResult.Select(prop => $"{prop.PropertyDataType}{(addMemory && prop.PropertyDataType != "address" ? " memory" : string.Empty)} {underscore}{prop.PropertyName}"));
+                paramList.AddRange(whereResult.Select(prop => $"{(addMemory ? potentiallyConvertToMemoryType(prop.PropertyDataType) : prop.PropertyDataType)} {underscore}{prop.PropertyName}"));
             }
             else
             {
@@ -96,6 +95,7 @@ event LogUpdate{_ItemName} ({getPropertyCommaList(true, true, false, string.Empt
                 return type;
             }
         }
+
         private string IsRegisteredPropertyFunctions()
         {
             string codeString = string.Empty;
@@ -226,13 +226,13 @@ public
 $@"
 function get{prop.PropertyName}ByAddress(address {_ItemName}{contractAddressPropertyName})
 public view
-returns({pType} memory {_ItemName}{prop.PropertyName})
+returns({potentiallyConvertToMemoryType(pType)} {_ItemName}{prop.PropertyName})
 {{
     if (!isRegistered{_ItemName}{contractAddressPropertyName}({_ItemName}{contractAddressPropertyName})) revert();
     return {convertion1}({_ItemName}{contractAddressPropertyName}Lookup[{_ItemName}{contractAddressPropertyName}].{prop.PropertyName});
 }}
 
-function getAddressBy{prop.PropertyName}({pType} memory {_ItemName}{prop.PropertyName})
+function getAddressBy{prop.PropertyName}({potentiallyConvertToMemoryType(pType)} {_ItemName}{prop.PropertyName})
 public view
 returns(address {_ItemName}{contractAddressPropertyName})
 {{
@@ -336,7 +336,7 @@ contract {_RegistryContracyName} is WorkbenchBase(""{_ApplicationName}"", ""{_Re
 
     function OpenRegistry() public
     {{
-        State = StateType.Open;        
+        State = StateType.Open;
         ContractUpdated(""OpenRegistry"");
     }}
 
@@ -427,7 +427,7 @@ contract {_ItemContractName} is WorkbenchBase(""{_ApplicationName}"", ""{_ItemCo
             var codeString =
                 $@"
 //Retire Function for {_ItemName}
-function  Retire(string memory retirementRecordedDateTime) public {{
+function Retire(string memory retirementRecordedDateTime) public {{
     RetirementRecordedDateTime = retirementRecordedDateTime;
     State = StateType.Retired;
     ContractUpdated(""Retire"");
@@ -510,8 +510,9 @@ function AddMedia({Media_ConstructorParamList}) public
 //Constructor Function for {_ItemName}
 //-------------------------------------
 ";
-            // var paramString = getPropertyCommaList(false, false, true, IsRegistryKnown ? "string memory _RegistryAddress" : string.Empty);
-            var paramString = getPropertyCommaList(false, false, true, IsRegistryKnown ? "address _RegistryAddress" : string.Empty);
+            // TODO: Better to use just 'address' instead of a 'string'
+            // var paramString = getPropertyCommaList(false, false, true, IsRegistryKnown ? "address _RegistryAddress" : string.Empty);
+            var paramString = getPropertyCommaList(false, false, true, IsRegistryKnown ? "string memory _RegistryAddress" : string.Empty);
             string Media_ConstructorParamList_Or_Empty = (MediaSetting.AssociatedMedia == AssociatedMedia_t.SingleElementAtCreation) ?
                                                               $", {Media_ConstructorParamList}" : string.Empty;
             string Media_VarAssignments_Or_Empty = (MediaSetting.AssociatedMedia == AssociatedMedia_t.SingleElementAtCreation) ?
@@ -537,8 +538,9 @@ $@"    {prop.PropertyName} = _{prop.PropertyName};
      
 ";
             }
-            // codeString += IsRegistryKnown ? $"    RegistryAddress = stringToAddress(_RegistryAddress);\n" : string.Empty;
-            codeString += IsRegistryKnown ? $"    RegistryAddress = _RegistryAddress;\n" : string.Empty;
+            codeString += IsRegistryKnown ? $"    RegistryAddress = stringToAddress(_RegistryAddress);\n" : string.Empty;
+            // TODO: Better to use just 'address' instead of a 'string'
+            // codeString += IsRegistryKnown ? $"    RegistryAddress = _RegistryAddress;\n" : string.Empty;
             if (IsRegistryKnown && (IsOwnerKnown ^ IsOwnershipTypeNone))
             {
                 codeString +=

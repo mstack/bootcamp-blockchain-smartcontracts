@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Schema;
 using System.ComponentModel.DataAnnotations;
-using System.IO;
-using System.IO.Compression;
-using System.Web.Mvc;
-
 
 /********************************************
  * Consider the following eight combination of input json
@@ -96,7 +91,7 @@ string public MediaUri; // URI for an image of the item
 string public MediaHash; // Hash of the image of the item so changes can be detected.
 string public MediaMetadataHash; // Hash of the image of the item so changes can be detected.", 1);
 
-            Media_ConstructorParamList = "string _MediaUri, string _MediaHash, string _MediaMetadataHash";
+            Media_ConstructorParamList = "string memory _MediaUri, string memory _MediaHash, string memory _MediaMetadataHash";
 
             Media_VarAssignments = addIndentation($@"
 MediaUri = _MediaUri;

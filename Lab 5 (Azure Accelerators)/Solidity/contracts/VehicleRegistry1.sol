@@ -62,7 +62,7 @@ contract VehicleRegistry1 is WorkbenchBase("VehicleRegistry1", "VehicleRegistry1
 
     function OpenRegistry() public
     {
-        State = StateType.Open;        
+        State = StateType.Open;
         ContractUpdated("OpenRegistry");
     }
 
@@ -227,7 +227,7 @@ contract VehicleRegistry1 is WorkbenchBase("VehicleRegistry1", "VehicleRegistry1
         return VehicleContractAddressIndex[index];
     }
 
-    /******************* Utils functions *******************************************/   
+    /******************* Utils functions *******************************************/
     function stringToBytes32(string memory source) public pure returns (bytes32 result) {
         bytes memory tempEmptyStringTest = bytes(source);
         if (tempEmptyStringTest.length == 0) {

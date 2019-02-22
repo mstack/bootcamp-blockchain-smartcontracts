@@ -22,15 +22,19 @@ contract Vehicle1 is WorkbenchBase("VehicleRegistry1", "Vehicle1") {
     string public LicenseNumber;
     string public VIN;
     string public Color;
+    uint public Year;
 
 
-
+    
+    string public MediaUri; // URI for an image of the item
+    string public MediaHash; // Hash of the image of the item so changes can be detected.
+    string public MediaMetadataHash; // Hash of the image of the item so changes can be detected.
 
     
     //Constructor Function for Vehicle
     //-------------------------------------
     
-    constructor (address _RegistryAddress, string memory _LicenseNumber, string memory _VIN, string memory _Color) public {
+    constructor (string memory _RegistryAddress, string memory _LicenseNumber, string memory _VIN, string memory _Color, uint _Year) public {
     
         LicenseNumber = _LicenseNumber;
          
@@ -38,9 +42,11 @@ contract Vehicle1 is WorkbenchBase("VehicleRegistry1", "Vehicle1") {
          
         Color = _Color;
          
-        RegistryAddress = _RegistryAddress;
+        Year = _Year;
+         
+        RegistryAddress = stringToAddress(_RegistryAddress);
     
-         MyVehicleRegistry = VehicleRegistry1(RegistryAddress);
+        MyVehicleRegistry = VehicleRegistry1(RegistryAddress);
          
         MyVehicleRegistry.RegisterVehicle32(
             stringToBytes32(LicenseNumber),
@@ -54,18 +60,26 @@ contract Vehicle1 is WorkbenchBase("VehicleRegistry1", "Vehicle1") {
 
 
 
-
+    
+    function AddMedia(string memory _MediaUri, string memory _MediaHash, string memory _MediaMetadataHash) public
+    {
+        
+        MediaUri = _MediaUri;
+        MediaHash = _MediaHash;
+        MediaMetadataHash = _MediaMetadataHash;
+        ContractUpdated("AddMedia");
+    }
 
     
     //Retire Function for Vehicle
-    function  Retire(string memory retirementRecordedDateTime) public {
+    function Retire(string memory retirementRecordedDateTime) public {
         RetirementRecordedDateTime = retirementRecordedDateTime;
         State = StateType.Retired;
         ContractUpdated("Retire");
     }
     
 
-    /******************* Utils functions *******************************************/   
+    /******************* Utils functions *******************************************/
     function stringToBytes32(string memory source) public pure returns (bytes32 result) {
         bytes memory tempEmptyStringTest = bytes(source);
         if (tempEmptyStringTest.length == 0) {
