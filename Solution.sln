@@ -23,6 +23,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleAppGanache", "Lab 5 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatternCodeGen", "Lab 5 (Azure Accelerators)\PatternCodeGen\PatternCodeGen.csproj", "{2403094D-F47F-445A-9A02-7BCEA236EDBB}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleAppRopsten", "Lab 2 - Completed\ConsoleAppRopsten\ConsoleAppRopsten.csproj", "{EB742D7E-69D1-40FF-B321-DE4C7863C95D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{2403094D-F47F-445A-9A02-7BCEA236EDBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2403094D-F47F-445A-9A02-7BCEA236EDBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2403094D-F47F-445A-9A02-7BCEA236EDBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB742D7E-69D1-40FF-B321-DE4C7863C95D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB742D7E-69D1-40FF-B321-DE4C7863C95D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB742D7E-69D1-40FF-B321-DE4C7863C95D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB742D7E-69D1-40FF-B321-DE4C7863C95D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -63,6 +69,7 @@ Global
 		{FE647C6F-892F-405D-8350-4BA9833A4DE8} = {618A4FA3-FE78-4C80-838C-0D957CBD57B8}
 		{5ED5921A-CEE9-496C-93D6-7BCA44C5306A} = {FE647C6F-892F-405D-8350-4BA9833A4DE8}
 		{2403094D-F47F-445A-9A02-7BCEA236EDBB} = {FE647C6F-892F-405D-8350-4BA9833A4DE8}
+		{EB742D7E-69D1-40FF-B321-DE4C7863C95D} = {BC152ADB-E181-46F2-A6BB-2869ED59CE53}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {221B3403-988D-432B-9DCF-E4A108963E6A}
