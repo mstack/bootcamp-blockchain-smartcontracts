@@ -44,7 +44,7 @@
     "truffle-assertions": "^0.7.1"
   },
   "dependencies": {
-    "ejs": "^2.5.7",
+    "ejs": "^3.1.7",
     "solc": "^0.5.2",
     "solium": "^1.1.8",
     "truffle": "^5.0.0",
