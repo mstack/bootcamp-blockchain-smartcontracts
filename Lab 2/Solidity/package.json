@@ -42,7 +42,7 @@
     "truffle": "^5.0.0-beta.2"
   },
   "dependencies": {
-    "ejs": "^2.5.7",
+    "ejs": "^3.1.7",
     "ganache-cli": "^6.2.3",
     "solc": "^0.5.0",
     "utf8": "^3.0.0"
